@@ -10,7 +10,7 @@ import { SvgIcon } from '@mui/material';
 
 export const items = [
   {
-    title: 'Overview',
+    title: '首页',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">
@@ -19,7 +19,7 @@ export const items = [
     )
   },
   {
-    title: 'Customers',
+    title: '用户',
     path: '/customers',
     icon: (
       <SvgIcon fontSize="small">
@@ -28,7 +28,7 @@ export const items = [
     )
   },
   {
-    title: 'Companies',
+    title: '公司',
     path: '/companies',
     icon: (
       <SvgIcon fontSize="small">
@@ -37,7 +37,7 @@ export const items = [
     )
   },
   {
-    title: 'Account',
+    title: '账户',
     path: '/account',
     icon: (
       <SvgIcon fontSize="small">
@@ -46,7 +46,7 @@ export const items = [
     )
   },
   {
-    title: 'Settings',
+    title: '设置',
     path: '/settings',
     icon: (
       <SvgIcon fontSize="small">
@@ -55,7 +55,7 @@ export const items = [
     )
   },
   {
-    title: 'Login',
+    title: '登录',
     path: '/auth/login',
     icon: (
       <SvgIcon fontSize="small">
@@ -64,7 +64,7 @@ export const items = [
     )
   },
   {
-    title: 'Register',
+    title: '注册',
     path: '/auth/register',
     icon: (
       <SvgIcon fontSize="small">
@@ -73,7 +73,7 @@ export const items = [
     )
   },
   {
-    title: 'Error',
+    title: '错误',
     path: '/404',
     icon: (
       <SvgIcon fontSize="small">
