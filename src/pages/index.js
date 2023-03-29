@@ -10,6 +10,8 @@ import { OverviewTasksProgress } from 'src/sections/overview/overview-tasks-prog
 import { OverviewTotalCustomers } from 'src/sections/overview/overview-total-customers';
 import { OverviewTotalProfit } from 'src/sections/overview/overview-total-profit';
 import { OverviewTraffic } from 'src/sections/overview/overview-traffic';
+import store from './app/store';
+import { Provider } from 'react-redux';
 
 const now = new Date();
 
@@ -224,9 +226,12 @@ const Page = () => (
 );
 
 Page.getLayout = (page) => (
-  <DashboardLayout>
+  <Provider store={store}>
+    <DashboardLayout>
     {page}
-  </DashboardLayout>
+    </DashboardLayout>
+  </Provider>
+  
 );
 
 export default Page;
