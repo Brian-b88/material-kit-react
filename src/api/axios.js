@@ -2,9 +2,11 @@
  * 网络请求配置
  */
 import axios from "axios";
+import { config } from "process";
 
 axios.defaults.timeout = 100000;
-axios.defaults.baseURL = "http://test.mediastack.cn/";
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8080";
 
 /**
  * http request 拦截器
@@ -13,7 +15,7 @@ axios.interceptors.request.use(
   (config) => {
     config.data = JSON.stringify(config.data);
     config.headers = {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     };
     return config;
   },
@@ -27,8 +29,9 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
   (response) => {
-    if (response.data.errCode === 2) {
-      console.log("过期");
+    console.log('响应数据' ,response);
+    if (response.status !== 200) {
+      console.log("请求接口异常");
     }
     return response;
   },
@@ -48,8 +51,9 @@ export function get(url, params = {}) {
     axios.get(url, {
         params: params,
       }).then((response) => {
+        console.log('请求结果', response);
         landing(url, params, response.data);
-        resolve(response.data);
+        resolve(response);
       })
       .catch((error) => {
         reject(error);
@@ -69,7 +73,8 @@ export function post(url, data) {
     axios.post(url, data).then(
       (response) => {
         //关闭进度条
-        resolve(response.data);
+        console.log('响应数据', response);
+        resolve(response);
       },
       (err) => {
         reject(err);
@@ -121,12 +126,13 @@ export function put(url, data = {}) {
 
 //统一接口处理，返回数据
 export default function (fecth, url, param) {
-  let _data = "";
   return new Promise((resolve, reject) => {
     switch (fecth) {
       case "get":
         console.log("begin a get request,and url:", url);
-        get(url, param)
+        get(url, param, {
+          withCredentials: false 
+        })
           .then(function (response) {
             resolve(response);
           })
@@ -209,6 +215,5 @@ function msag(err) {
  * @param data
  */
 function landing(url, params, data) {
-  if (data.code === -1) {
-  }
+  console.log("loading: ", data);
 }

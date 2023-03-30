@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   TextField,
   Unstable_Grid2 as Grid
 } from '@mui/material';
+import {getAccount} from '../../api/account';
 
 const states = [
   {
@@ -31,11 +32,14 @@ const states = [
 ];
 
 export const AccountProfileDetails = () => {
+  const[post, setPost] = useState(null);
+  
+
   const [values, setValues] = useState({
-    firstName: 'Anika',
-    lastName: 'Visser',
+    firstName: '郑',
+    lastName: '邦振',
     email: 'demo@devias.io',
-    phone: '',
+    phone: '110',
     state: 'los-angeles',
     country: 'USA'
   });
@@ -57,6 +61,24 @@ export const AccountProfileDetails = () => {
     []
   );
 
+  const handleSumitButton = useCallback((event) => {
+    let obj = getAccount();
+    console.log(obj);
+    event.preventDefault;
+  },
+  [])
+
+
+  useEffect(() => {
+    getAccount().then((response) => {
+      setPost(response.data)
+    })
+  }, [])
+
+  if(!post) {
+    return null;
+  }
+
   return (
     <form
       autoComplete="off"
@@ -65,8 +87,8 @@ export const AccountProfileDetails = () => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="当前用户信息可编辑"
+          title="当前用户"
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -80,12 +102,12 @@ export const AccountProfileDetails = () => {
               >
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
+                  helperText="请输入姓"
                   label="First name"
                   name="firstName"
                   onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={post.firstName}
                 />
               </Grid>
               <Grid
@@ -98,7 +120,7 @@ export const AccountProfileDetails = () => {
                   name="lastName"
                   onChange={handleChange}
                   required
-                  value={values.lastName}
+                  value={post.lastName}
                 />
               </Grid>
               <Grid
@@ -111,7 +133,7 @@ export const AccountProfileDetails = () => {
                   name="email"
                   onChange={handleChange}
                   required
-                  value={values.email}
+                  value={post.email}
                 />
               </Grid>
               <Grid
@@ -124,7 +146,7 @@ export const AccountProfileDetails = () => {
                   name="phone"
                   onChange={handleChange}
                   type="number"
-                  value={values.phone}
+                  value={post.phone}
                 />
               </Grid>
               <Grid
@@ -169,8 +191,9 @@ export const AccountProfileDetails = () => {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">
-            Save details
+          <Button variant="contained"
+                  onClick={handleSumitButton}>
+            保存
           </Button>
         </CardActions>
       </Card>

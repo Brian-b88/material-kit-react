@@ -7,7 +7,7 @@ import http from './axios';
  */
 function getAccount(){
   return new Promise((resolve, reject) => {
-    http("get",'/article/home/index').then(res => {
+    http("get",'/account/query').then(res => {
       resolve (res);
     },error => {
       console.log("网络异常~",error);
